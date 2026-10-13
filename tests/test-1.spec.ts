@@ -1,9 +1,12 @@
 import { test, expect } from '@playwright/test';
 
+test.describe('Test of the main page', () => {
+
+test.beforeEach(async ({ page }) => {
+    await page.goto('https://playwright.dev/');
+});
 test('Check navigation menu', async ({ page }) => {
  
-await page.goto('https://playwright.dev/');
-
  await expect(page.getByRole('link', { name: 'Playwright logo Playwright' })).toBeVisible();
  await expect(page.getByRole('link', { name: 'Docs' })).toBeVisible();
  await expect(page.getByRole('link', { name: 'MCP', exact: true })).toBeVisible();
@@ -18,8 +21,6 @@ await page.goto('https://playwright.dev/');
 
 test('Navigation elements have correct names', async ({ page }) => {
  
-await page.goto('https://playwright.dev/');
-
 await expect(page.getByRole('link', { name: 'Playwright logo Playwright' })).toContainText('Playwright'); 
 await expect(page.getByRole('link', { name: 'Docs' })).toContainText('Docs');
 await expect(page.getByRole('link', { name: 'MCP', exact: true })).toContainText('MCP');
@@ -30,8 +31,6 @@ await expect(page.getByRole('button', { name: 'Node.js' })).toContainText('Node.
 
 test('Check href atribute in items of navigation menu', async ({ page }) => {
  
-await page.goto('https://playwright.dev/');
-
 await expect(page.getByRole('link', { name: 'Playwright logo Playwright' })).toHaveAttribute('href', '/'); 
 await expect(page.getByRole('link', { name: 'Docs' })).toHaveAttribute('href', '/docs/intro');
 await expect(page.getByRole('link', { name: 'MCP', exact: true })).toHaveAttribute('href', '/mcp/introduction');
@@ -44,8 +43,6 @@ await expect(page.getByRole('link', { name: 'Discord server' })).toHaveAttribute
 
 test('Check switching between dark and light mode', async ({ page }) => {
  
-await page.goto('https://playwright.dev/');
-
 await expect(page.locator('html')).toHaveAttribute('data-theme', 'light');
 await page.getByRole('button', { name: 'Switch between dark and light' }).click();
 await expect(page.locator('html')).toHaveAttribute('data-theme', 'light');
@@ -53,8 +50,6 @@ await expect(page.locator('html')).toHaveAttribute('data-theme', 'light');
 });
 
 test('Verify page title is displayed', async ({ page }) => {
- 
-await page.goto('https://playwright.dev/');
 
 //await page.getByRole('heading', { name: 'Playwright enables reliable' }).visible();
 
@@ -66,10 +61,11 @@ await expect(page.getByRole('heading',
 
 test('Clicking on get Started button and move to the coresponded page', async ({ page }) => {
  
-await page.goto('https://playwright.dev/');
-
 await expect(page.getByRole('link', { name: 'Get started' })).toBeVisible();
 await expect(page.getByRole('link', { name: 'Get started' })).toContainText('Get started');
 await expect(page.getByRole('link', { name: 'Get started' })).toHaveAttribute('href', '/docs/intro');
 
 });
+
+});
+
